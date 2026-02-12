@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  color: white;
+  font-size: 1.8rem;
+  padding: 0 20px;
+}
+
+.buttons {
+  margin-top: 30px;
+  position: relative;
+  height: 150px;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  position: absolute;
+  transition: all 0.2s ease;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+  left: 50%;
+  transform: translateX(-120%);
+}
+
+#noBtn {
+  background: white;
+  color: #ff4d6d;
+  left: 50%;
+  transform: translateX(20%);
+}
+
+.message {
+  margin-top: 30px;
+  font-size: 1.8rem;
+  color: white;
+  display: none;
+}
+
+/* Floating Hearts */
+.heart {
+  position: absolute;
+  color: white;
+  animation: float 5s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) scale(1);
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.5);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Will You Be My Valentine? 💖</h1>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 😢</button>
+  </div>
+
+  <div class="message" id="loveMessage">
+    YAYYY ❤️🥰 I love youuuuu!!
+  </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("loveMessage");
+
+let yesScale = 1;
+
+function moveNoButton() {
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+}
+
+function growYesButton() {
+  yesScale += 0.2;
+  yesBtn.style.transform = `translateX(-120%) scale(${yesScale})`;
+}
+
+// Mobile touch support
+noBtn.addEventListener("touchstart", moveNoButton);
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("click", moveNoButton);
+
+yesBtn.addEventListener("click", () => {
+  message.style.display = "block";
+  yesBtn.style.display = "none";
+  noBtn.style.display = "none";
+});
+
+// Grow yes button whenever No is tapped
+noBtn.addEventListener("touchstart", growYesButton);
+noBtn.addEventListener("mouseover", growYesButton);
+
+// Floating hearts generator
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 20 + "px";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
